@@ -1,6 +1,6 @@
 ---
 title: 'Nextの本領発揮'
-date: '2020-10-28'
+date: '2020-10-29'
 ---
 
 We recommend using **Static Generation** (with and without data) whenever possible because your page can be built once and served by CDN, which makes it much faster than having a server render the page on every request.
