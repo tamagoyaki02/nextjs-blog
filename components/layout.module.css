@@ -1,13 +1,24 @@
 .container {
-  max-width: 36rem;
-  padding: 0 1rem;
-  margin: 3rem auto 6rem;
+  /* max-width: 36rem; */
+  /* padding: 0 0 1rem; */
+  /* margin: 0rem 6rem; */
 }
 
 .header {
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: center;
+  height: 600px;
+  background-color: #8A5E5F;
+  color: #fff;
+}
+
+.main_container {
+  margin: 0 auto;
+  /* 1rem=18px  */
+  max-width: 36rem;
+  /* max-width: 600px; */
 }
 
 .backToHome {

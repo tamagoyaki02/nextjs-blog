@@ -3,6 +3,8 @@ import path from 'path'
 import matter from 'gray-matter'
 import remark from 'remark'
 import html from 'remark-html'
+import fetch from 'node-fetch'
+const base64 = require('js-base64')
 
 const postsDirectory = path.join(process.cwd(), 'posts')
 
@@ -23,7 +25,7 @@ export function getSortedPostsData() {
     // Combine the data with the id
     return {
       id,
-      ...matterResult.data
+      ...(matterResult.data as { date: string; title: string })
     }
   })
   // Sort posts by date
@@ -35,9 +37,14 @@ export function getSortedPostsData() {
     }
   })
 }
-export function getAllPostIds() {
-  const fileNames = fs.readdirSync(postsDirectory)
 
+export async function getAllPostIds() {
+  // const fileNames = fs.readdirSync(postsDirectory)
+
+  const repoUrl = "https://api.github.com/repos/tamagoyaki02/nextjs-blog/contents/posts/"
+  const response = await fetch(repoUrl)
+  const files = await response.json()
+  const fileNames = files.map(file => file.name)
   // Returns an array that looks like this:
   // [
   //   {
@@ -59,9 +66,15 @@ export function getAllPostIds() {
     }
   })
 }
-export async function getPostData(id) {
-  const fullPath = path.join(postsDirectory, `${id}.md`)
-  const fileContents = fs.readFileSync(fullPath, 'utf8')
+
+export async function getPostData(id: string) {
+  // const fullPath = path.join(postsDirectory, `${id}.md`)
+  // const fileContents = fs.readFileSync(fullPath, 'utf8')
+  const repoUrl = `https://api.github.com/repos/tamagoyaki02/nextjs-blog/contents/posts/${id}.md`
+  const response = await fetch(repoUrl)
+  const file = await response.json()
+  const fileContents = base64.decode(file.content)
+
 
   // Use gray-matter to parse the post metadata section
   const matterResult = matter(fileContents)
@@ -76,6 +89,6 @@ export async function getPostData(id) {
   return {
     id,
     contentHtml,
-    ...matterResult.data
+    ...(matterResult.data as { date: string; title: string })
   }
 }

@@ -1,13 +1,19 @@
+// import React from 'react'
 import Head from 'next/head'
 import Image from 'next/image'
 import styles from './layout.module.css'
 import utilStyles from '../styles/utils.module.css'
 import Link from 'next/link'
 
-const name = 'Torahack'
-export const siteTitle = 'Next.js Torahack'
+const name = 'Hiraok Blog'
+export const siteTitle = 'Hiraok\'s Blog'
 
-export default function Layout({ children, home }) {
+type BlogLayout = {
+  children: React.ReactNode
+  home?: boolean
+}
+
+export default function Layout({ children, home }: BlogLayout) {
   return (
     <div className={styles.container}>
       <Head>
@@ -28,20 +34,28 @@ export default function Layout({ children, home }) {
       <header className={styles.header}>
         {home ? (
           <>
-            <Image
-              priority
-              src="/images/profile.jpg"
-              className={utilStyles.borderCircle}
-              height={144}
-              width={144}
-              alt={name}
-            />
             <h1 className={utilStyles.heading2Xl}>{name}</h1>
+            <div className={utilStyles.imgFlex}>
+              <Image
+                priority
+                src="/images/profile.jpg"
+                className={utilStyles.borderCircle}
+                height={65}
+                width={65}
+                alt={name}
+              />
+              <h2 className={utilStyles.home_subtitle}>Next.js 備忘録 ブログ</h2>
+            </div>
           </>
         ) : (
           <>
             <Link href="/">
               <a>
+                <h2 className={utilStyles.headingLg}>
+                  <Link href="/">
+                    <a className={utilStyles.colorInherit}>{name}</a>
+                  </Link>
+                </h2>
                 <Image
                   priority
                   src="/images/profile.jpg"
@@ -52,15 +66,10 @@ export default function Layout({ children, home }) {
                 />
               </a>
             </Link>
-            <h2 className={utilStyles.headingLg}>
-              <Link href="/">
-                <a className={utilStyles.colorInherit}>{name}</a>
-              </Link>
-            </h2>
           </>
         )}
       </header>
-      <main>{children}</main>
+      <main className={styles.main_container}>{children}</main>
       {!home && (
         <div className={styles.backToHome}>
           <Link href="/">

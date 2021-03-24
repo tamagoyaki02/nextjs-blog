@@ -1,0 +1,32 @@
+    //tsconfig.json作ってnpm run devするだけで、このファイルを良い感じに自動で記述してくれる
+    {
+      "compilerOptions": {
+        "target": "es5",
+        "lib": [
+          "dom",
+          "dom.iterable",
+          "esnext"
+        ],
+        "allowJs": true,
+        "skipLibCheck": true,
+        "strict": false,
+        "forceConsistentCasingInFileNames": true,
+        "noEmit": true,
+        "esModuleInterop": true,
+        "module": "esnext",
+        "moduleResolution": "node",
+        "resolveJsonModule": true,
+        "isolatedModules": true,
+        "jsx": "preserve"
+      },
+      //tsconfig.json作ってnpm run devするだけで、自動でコンパイル対象にしてくれてる
+      "include": [
+        "next-env.d.ts", //next.jsの環境変数を定義するファイル
+        "**/*.ts",
+        "**/*.tsx"
+      ],
+      "exclude": [
+        //tsconfig.json作ってnpm run devするだけで、自動でコンパイル除外してくれてる
+        "node_modules"
+      ]
+    }
