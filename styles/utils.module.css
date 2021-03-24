@@ -1,9 +1,9 @@
 .heading2Xl {
-  font-size: 2.5rem;
+  font-size: 3.8rem;
   line-height: 1.2;
-  font-weight: 800;
-  letter-spacing: -0.05rem;
-  margin: 1rem 0;
+  font-weight: 700;
+  letter-spacing: 0.02rem;
+  margin: 2rem 0;
 }
 
 .headingXl {
@@ -49,4 +49,18 @@
 
 .lightText {
   color: #666;
+}
+
+.imgFlex {
+  margin-right: 160px;
+  display: flex;
+}
+
+.home_subtitle {
+  /* display: inline-block; */
+  /* float: right; */
+  margin-left: 10px;
+  font-size: 0.9rem;
+  font-weight: normal;
+  line-height: 1.2;
 }
