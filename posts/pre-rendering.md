@@ -1,6 +1,7 @@
 ---
 title: 'のんのんびより3期はじまるよ！'
 date: '2020-03-01'
+description: '4.Next.jsの進化が問われる2021年、何がそんなにすごいのか？今日はその内容を考察していきます。'
 ---
 
 Next.js has two forms of pre-rendering: **Static Generation** and **Server-side Rendering**. The difference is in **when** it generates the HTML for a page.

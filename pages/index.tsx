@@ -23,6 +23,7 @@ type Props = {
     id: string
     title: string
     date: string
+    description: string
   }[]
 }
 
@@ -36,12 +37,14 @@ export default function Home({ allPostsData }: Props) {
       </section>
       <section className={`${utilStyles.headingMd} ${utilStyles.padding1px}`}>
         <ul className={utilStyles.list}>
-          {allPostsData.map(({ id, date, title }) => (
+          {allPostsData.map(({ id, date, title, description }) => (
             <li className={utilStyles.listItem} key={id}>
               <Link href={`/posts/${id}`}>
-                <a>{title}</a>
+                <a className={utilStyles.post_Link}>
+                  <h2 className={utilStyles.post_title}>{title}</h2>
+                  <p className={utilStyles.post_desp}>{description}</p>
+                </a>
               </Link>
-              <br />
               <small className={utilStyles.lightText}>
                 <Date dateString={date} />
               </small>

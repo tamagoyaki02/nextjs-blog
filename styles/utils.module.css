@@ -45,6 +45,7 @@
 
 .listItem {
   margin: 0 0 1.25rem;
+  color: #686868;
 }
 
 .lightText {
@@ -63,4 +64,34 @@
   font-size: 0.9rem;
   font-weight: normal;
   line-height: 1.2;
+}
+
+.post_Link {
+  color: #686868;
+  transition: .3s;
+}
+
+.post_Link:visited {
+  color: #686868;
+}
+
+.post_Link:hover {
+  opacity: .7;
+  text-decoration: none;
+}
+
+.post_Link:active {
+  color: #686868;
+}
+
+.post_title {
+  display: inline;
+  font-size: 1.2rem;
+}
+
+.post_desp {
+  display: inline-block;
+  margin-top: 0;
+  font-size: .85rem;
+  font-weight: 400;
 }
