@@ -6,6 +6,7 @@ import utilStyles from '../styles/utils.module.css'
 import { getSortedPostsData } from '../lib/posts'
 import Link from 'next/link'
 import Date from '../components/date'
+import Image from 'next/image'
 
 export const getStaticProps: GetStaticProps = async () => {
   const allPostsData = await getSortedPostsData()
@@ -24,6 +25,7 @@ type Props = {
     title: string
     date: string
     description: string
+    img_path: string
   }[]
 }
 
@@ -37,12 +39,22 @@ export default function Home({ allPostsData }: Props) {
       </section>
       <section className={`${utilStyles.headingMd} ${utilStyles.padding1px}`}>
         <ul className={utilStyles.list}>
-          {allPostsData.map(({ id, date, title, description }) => (
+          {allPostsData.map(({ id, date, title, description, img_path }) => (
             <li className={utilStyles.listItem} key={id}>
               <Link href={`/posts/${id}`}>
                 <a className={utilStyles.post_Link}>
-                  <h2 className={utilStyles.post_title}>{title}</h2>
-                  <p className={utilStyles.post_desp}>{description}</p>
+                  <Image
+                    priority
+                    src={`/images/${img_path}`}
+                    className={utilStyles.post_thumnail}
+                    height={250}
+                    width={500}
+                    alt={title}
+                  />
+                  <div className={utilStyles.post_card}>
+                    <h2 className={utilStyles.post_title}>{title}</h2>
+                    <p className={utilStyles.post_desp}>{description}</p>
+                  </div>
                 </a>
               </Link>
               <small className={utilStyles.lightText}>

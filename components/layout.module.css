@@ -2,6 +2,7 @@
   /* max-width: 36rem; */
   /* padding: 0 0 1rem; */
   /* margin: 0rem 6rem; */
+  background-color: #F1F1F1;
 }
 
 .header {
@@ -17,7 +18,7 @@
 .main_container {
   margin: 0 auto;
   /* 1rem=18px  */
-  max-width: 36rem;
+  /* max-width: 36rem; */
   /* max-width: 600px; */
 }
 

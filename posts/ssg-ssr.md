@@ -1,7 +1,8 @@
 ---
 title: '夏目友人帳は大作'
-date: '2020-01-09'
+date: '2020-02-01'
 description: '3.Next.jsの進化が問われる2021年、何がそんなにすごいのか？今日はその内容を考察していきます。'
+img_path: 'thum-2.jpg'
 ---
 
 We recommend using **Static Generation** (with and without data) whenever possible because your page can be built once and served by CDN, which makes it much faster than having a server render the page on every request.
