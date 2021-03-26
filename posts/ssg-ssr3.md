@@ -1,7 +1,8 @@
 ---
 title: 'Nextの本領発揮'
-date: '2020-10-29'
+date: '2020-04-01'
 description: '1.Next.jsの進化が問われる2021年、何がそんなにすごいのか？今日はその内容を考察していきます。'
+img_path: 'thum-4.jpg'
 ---
 
 We recommend using **Static Generation** (with and without data) whenever possible because your page can be built once and served by CDN, which makes it much faster than having a server render the page on every request.

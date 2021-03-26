@@ -44,12 +44,19 @@
 }
 
 .listItem {
+  position: relative;
+  width: 400px;
+  height: 400px;
+  background: #fff;
+  border-radius: 5px;
+  box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.1);
   margin: 0 0 1.25rem;
-  color: #686868;
+  /* padding: 0.75rem 1.75rem; */
 }
 
 .lightText {
   color: #666;
+  padding: 0 1.5rem;
 }
 
 .imgFlex {
@@ -76,7 +83,7 @@
 }
 
 .post_Link:hover {
-  opacity: .7;
+  opacity: .85;
   text-decoration: none;
 }
 
@@ -85,13 +92,21 @@
 }
 
 .post_title {
-  display: inline;
+  margin-bottom: 0;
   font-size: 1.2rem;
 }
 
 .post_desp {
-  display: inline-block;
   margin-top: 0;
   font-size: .85rem;
   font-weight: 400;
 }
+
+.post_card {
+  display: inline-block;
+  display: table-cell;
+  vertical-align: middle;
+  padding: 0 1.5rem;
+}
+
+.post_thumnail {}
