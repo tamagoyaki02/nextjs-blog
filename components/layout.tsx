@@ -5,8 +5,8 @@ import styles from './layout.module.css'
 import utilStyles from '../styles/utils.module.css'
 import Link from 'next/link'
 
-const name = 'Hiraok Blog'
-export const siteTitle = 'Hiraok\'s Blog'
+const name = 'Hiraoku Blog'
+export const siteTitle = 'Hiraoku Blog'
 
 type BlogLayout = {
   children: React.ReactNode
@@ -34,32 +34,32 @@ export default function Layout({ children, home }: BlogLayout) {
       <header className={styles.header}>
         {home ? (
           <>
-            <h1 className={utilStyles.heading2Xl}>{name}</h1>
-            <div className={utilStyles.imgFlex}>
+            <h1 className={styles.header_tit}>{name}</h1>
+            <div className={styles.header_imgFlex}>
               <Image
                 priority
                 src="/images/profile.jpg"
-                className={utilStyles.borderCircle}
+                className={styles.header_borderCircle}
                 height={65}
                 width={65}
                 alt={name}
               />
-              <h2 className={utilStyles.home_subtitle}>Next.js 備忘録 ブログ</h2>
+              <h2 className={styles.header_homeSubtit}>Next.js 備忘録 ブログ</h2>
             </div>
           </>
         ) : (
           <>
             <Link href="/">
               <a>
-                <h2 className={utilStyles.headingLg}>
+                <h2 className={styles.header_titM}>
                   <Link href="/">
-                    <a className={utilStyles.colorInherit}>{name}</a>
+                    <a className={styles.header_colorInherit}>{name}</a>
                   </Link>
                 </h2>
                 <Image
                   priority
                   src="/images/profile.jpg"
-                  className={utilStyles.borderCircle}
+                  className={styles.header_borderCircle}
                   height={108}
                   width={108}
                   alt={name}
@@ -69,14 +69,17 @@ export default function Layout({ children, home }: BlogLayout) {
           </>
         )}
       </header>
-      <main className={styles.main_container}>{children}</main>
-      {!home && (
-        <div className={styles.backToHome}>
+      <main className={styles.main}>{children}</main>
+      <footer className={styles.footer}>
+        <div>
           <Link href="/">
-            <a>← Back to home</a>
+            <a className={styles.footer_link}>
+              <p className={styles.footer_subtit}>Hiraoku blog</p>
+            </a>
           </Link>
+          <p className={styles.footer_copyright}>Copyright © 2021. Hiraoku</p>
         </div>
-      )}
+      </footer>
     </div>
   )
 }

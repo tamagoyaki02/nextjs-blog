@@ -35,25 +35,23 @@ export default function Home({ allPostsData }: Props) {
       <Head>
         <title>{siteTitle}</title>
       </Head>
-      <section className={utilStyles.headingMd}>
-      </section>
-      <section className={`${utilStyles.headingMd} ${utilStyles.padding1px}`}>
-        <ul className={utilStyles.list}>
+      <section className={`${utilStyles.top} ${utilStyles.padding1px}`}>
+        <ul className={utilStyles.top_list}>
           {allPostsData.map(({ id, date, title, description, img_path }) => (
-            <li className={utilStyles.listItem} key={id}>
+            <li className={utilStyles.top_listItem} key={id}>
               <Link href={`/posts/${id}`}>
-                <a className={utilStyles.post_Link}>
+                <a className={utilStyles.top_postLink}>
                   <Image
                     priority
                     src={`/images/${img_path}`}
-                    className={utilStyles.post_thumnail}
+                    className={utilStyles.top_postthumnail}
                     height={250}
                     width={500}
                     alt={title}
                   />
-                  <div className={utilStyles.post_card}>
-                    <h2 className={utilStyles.post_title}>{title}</h2>
-                    <p className={utilStyles.post_desp}>{description}</p>
+                  <div className={utilStyles.top_postCard}>
+                    <h2 className={utilStyles.top_postTitle}>{title}</h2>
+                    <p className={utilStyles.top_postDesp}>{description}</p>
                   </div>
                 </a>
               </Link>

@@ -1,5 +1,6 @@
 import Date from '../../components/date'
 import utilStyles from '../../styles/utils.module.css'
+import posts from '../../styles/posts.module.css'
 import Head from 'next/head'
 import Layout from '../../components/layout'
 import { getAllPostIds, getPostData } from '../../lib/posts'
@@ -40,8 +41,8 @@ export default function Post({ postData }: PostProps) {
         <title>{postData.title}</title>
       </Head>
       <article>
-        <h1 className={utilStyles.headingXl}>{postData.title}</h1>
-        <div className={utilStyles.lightText}>
+        <h1 className={posts.post_tit}>{postData.title}</h1>
+        <div className={posts.post_lightText}>
           <Date dateString={postData.date} />
         </div>
         <div dangerouslySetInnerHTML={{ __html: postData.contentHtml }} />

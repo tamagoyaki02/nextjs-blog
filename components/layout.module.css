@@ -1,7 +1,5 @@
 .container {
-  /* max-width: 36rem; */
-  /* padding: 0 0 1rem; */
-  /* margin: 0rem 6rem; */
+  /* 最低限の全体共通のコンテナ */
   background-color: #F1F1F1;
 }
 
@@ -15,13 +13,86 @@
   color: #fff;
 }
 
-.main_container {
+.header_tit {
+  font-size: 3.8rem;
+  line-height: 1.2;
+  font-weight: 700;
+  letter-spacing: 0.02rem;
+  margin: 2rem 0;
+}
+
+.header_imgFlex {
+  margin-right: 200px;
+  display: flex;
+}
+
+.header_borderCircle {
+  border-radius: 9999px;
+}
+
+.header_homeSubtit {
+  /* display: inline-block; */
+  /* float: right; */
+  margin-left: 10px;
+  font-size: 0.9rem;
+  font-weight: normal;
+  line-height: 1.2;
+}
+
+.header_titM {
+  font-size: 1.5rem;
+  line-height: 1.4;
+  margin: 1rem 0;
+}
+
+.header_colorInherit {
+  color: inherit;
+}
+
+.main {
+  /* ここは最低限の共通cssあてる */
   margin: 0 auto;
-  /* 1rem=18px  */
-  /* max-width: 36rem; */
-  /* max-width: 600px; */
+}
+
+.footer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 250px;
+  background-color: #8A5E5F;
+  color: #fff;
+}
+
+.footer_subtit {
+  font-weight: bold;
+  font-size: 0.9rem;
+  margin-bottom: -5px;
+  /* transition: .4s; */
+}
+
+.footer_link {
+  color: #fff;
+  text-decoration: none;
+  transition: .3s;
+}
+
+.footer_link :visited {
+  color: #fff;
+  text-decoration: none;
+}
+
+.footer_link :hover {
+  color: #000;
+  opacity: .7;
+}
+
+.footer_copyright {
+  font-size: .8rem;
+  color: #fff;
 }
 
 .backToHome {
+  /* 削除するか検討 */
   margin: 3rem 0 0;
 }
