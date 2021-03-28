@@ -22,6 +22,8 @@ export default function Layout({ children, home }: BlogLayout) {
           name="description"
           content="Learn how to build a personal website using Next.js"
         />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <meta
           property="og:image"
           content={`https://og-image.vercel.app/${encodeURI(
