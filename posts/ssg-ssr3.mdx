@@ -5,11 +5,142 @@ description: '1.Next.jsの進化が問われる2021年、何がそんなにす�
 img_path: 'thum-4.jpg'
 ---
 
-We recommend using **Static Generation** (with and without data) whenever possible because your page can be built once and served by CDN, which makes it much faster than having a server render the page on every request.
+Next.js + MDXでブログ（このサイト）を構築した際、
+レイアウトをカスタマイズするのに試行錯誤したのでその結果を備忘録として残しておく。
 
-You can use Static Generation for many types of pages, including:
+サンプルコードは[こちら](https://github.com/uu64/nextjs-mdx-blog-sample)。
 
-- E-commerce product listings
-- Help and documentation
 
-In that case, you can use **Server-Side Rendering**. It will be slower, but the pre-rendered page will always be up-to-date. Or you can skip pre-rendering and use client-side JavaScript to populate data.
+## MDXで記述したページに共通のヘッダやフッタを配置したい
+
+ブログの各記事に、
+記事のメタ情報（タイトル、作成日、カテゴリ ...）を記載したヘッダや
+関連記事へのリンクを含むフッタなどの共通コンポーネントを配置することを考える。
+
+一番シンプルな方法は各 MDX ファイル内に共通コンポーネントの呼出しを記述する方法。
+けれど、すべての MDX ファイルに以下のような記述をするのは DRY 原則に反するのでやりたくない。
+
+```javascript
+import CommonHeader from "@/components/CommonHeader";
+import CommonHeader from "@/components/CommonFooter";
+
+<CommonHeader />
+
+ここに本文を書く。
+
+<CommonFooter />
+```
+
+そこで、このブログでは以下のような方法で実装した。各記事のパスは `/blog/{year}/{month}/{post_id}` とする。
+
+- Next.js の [Dynamic Routes](https://nextjs.org/docs/routing/dynamic-routes) を利用し、
+  共通コンポーネントを記述したページ `pages/blog/[...id].tsx` を作成する。
+
+- [babel-plugin-import-glob-array](https://github.com/jescalan/babel-plugin-import-glob-array) を
+  用いて MDX ファイルを一括インポートし、各 MDX ファイルのパス情報を配列形式で取得する。
+
+- 取得したパス情報をもとに SSG 用のパス情報を生成する。また、
+  [Dynamic Import](https://nextjs.org/docs/advanced-features/dynamic-import) 機能で
+  MDX ファイルをパスごとに取得して、コンテンツとして埋め込む。
+
+実装の一部を以下に抜粋する。詳細は[サンプルコード](https://github.com/uu64/nextjs-mdx-blog-sample)を参照。
+
+FrontMatter を用いたメタ情報の取り扱いについては
+[公式のサンプルコード](https://mdxjs.com/guides/custom-loader)もある。
+
+```javascript
+// [...id].tsx
+import React from "react";
+import { GetStaticPaths, GetStaticProps } from "next";
+import dynamic from "next/dynamic";
+import mdxUtil from "@/lib/mdx-util";
+import BlogLayout from "@/layouts/BlogLayout";
+
+interface Props {
+  resourceId: string;
+  frontMatter: FrontMatter;
+}
+
+const Post: React.FC<Props> = (props: Props) => {
+  const { resourceId, frontMatter } = props;
+  // MDX ファイルを dynamic import してコンテンツとして埋め込む
+  const MDX = dynamic(() => import(`@/posts/${resourceId}.mdx`));
+  return (
+    <BlogLayout frontMatter={frontMatter}>
+      <MDX />
+    </BlogLayout>
+  );
+};
+
+export const getStaticPaths: GetStaticPaths = async () => {
+  // babel-plugin-import-glob-array でパス情報を取得、パスリストを生成
+  const posts = await mdxUtil.getPosts();
+  const paths = posts.map((post) => {
+    return {
+      params: { id: post.resourceId.split("/") },
+    };
+  });
+  return { paths, fallback: false };
+};
+
+export const getStaticProps: GetStaticProps = async ({ params }) => {
+  const resourceId = (params.id as string[]).join("/");
+  // 各パスに対応する MDX ファイルのメタ情報とパス情報を Props として渡す
+  const post = await mdxUtil.getPostByResourcePath(resourceId);
+  return {
+    props: {
+      resourceId,
+      frontMatter: post.frontMatter,
+    },
+  };
+};
+
+export default Post;
+```
+
+## MDX 本文中の各コンポーネントに独自のスタイルを適用したい
+
+[MDXPrivider](https://mdxjs.com/advanced/components#mdxprovider) を用いることで、
+MDX 本文中の各要素をカスタムコンポーネントと対応づけることができる。
+あとはカスタムコンポーネントに好きなスタイルを適用すればよい。
+
+```javascript
+import React from "react";
+import { MDXProvider } from "@mdx-js/react";
+import Link from "next/link";
+import Paragraph from "@/components/Paragraph";
+
+interface Props {
+  frontMatter: FrontMatter;
+  children: React.ReactNode;
+}
+
+const BlogLayout: React.FC<Props> = (props: Props) => {
+  const { children, frontMatter } = props;
+
+  // MDX 中の要素をカスタムコンポーネントに対応づける
+  const state = {
+    p: Paragraph,
+  };
+
+  return (
+    <>
+      <h1>{frontMatter.title}</h1>
+      <span>Created at {frontMatter.date}</span>
+      <MDXProvider components={state}>{children}</MDXProvider>
+      <Link href="/">
+        <a>Go back to home.</a>
+      </Link>
+    </>
+  );
+};
+
+export default BlogLayout;
+```
+
+## 感想
+
+Next.js の Dynamic Routes と MDX を併用する実装はもう少しシンプルにならないだろうか。
+
+babel-plugin-import-glob-array を使ったり dynamic import を使ったり、
+冗長な感じがして気になってはいるが、今のところ他にうまい方法が思いついていない。
